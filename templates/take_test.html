@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptitude Test - Standard {{ standard }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@magic-ui/core@latest"></script>
+    <style>
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 min-h-screen flex items-center justify-center p-6">
+    <div class="container max-w-4xl mx-auto p-6 bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl fade-in">
+        <h1 class="text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 mb-8">Aptitude Test - Standard {{ standard }}</h1>
+        <form method="POST" action="{{ url_for('take_test', standard=standard) }}" class="space-y-8">
+            
+            <!-- Science Questions -->
+            <div class="p-6 rounded-xl shadow-md bg-gradient-to-br from-blue-200 to-blue-100">
+                <h2 class="text-2xl font-semibold mb-4 text-blue-900">Science Questions</h2>
+                {% for question in science_questions %}
+                <div class="mb-6">
+                    <p class="font-medium text-blue-800">{{ question.question }}</p>
+                    {% for option in question.options %}
+                    <label class="block mt-2 flex items-center space-x-2">
+                        <input type="radio" name="science[{{ question.id }}]" value="{{ option }}" class="accent-blue-500" required>
+                        <span class="text-blue-700">{{ option }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Maths Questions -->
+            <div class="p-6 rounded-xl shadow-md bg-gradient-to-br from-green-200 to-green-100">
+                <h2 class="text-2xl font-semibold mb-4 text-green-900">Maths Questions</h2>
+                {% for question in maths_questions %}
+                <div class="mb-6">
+                    <p class="font-medium text-green-800">{{ question.question }}</p>
+                    {% for option in question.options %}
+                    <label class="block mt-2 flex items-center space-x-2">
+                        <input type="radio" name="maths[{{ question.id }}]" value="{{ option }}" class="accent-green-500" required>
+                        <span class="text-green-700">{{ option }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Reasoning Questions -->
+            <div class="p-6 rounded-xl shadow-md bg-gradient-to-br from-purple-200 to-purple-100">
+                <h2 class="text-2xl font-semibold mb-4 text-purple-900">Reasoning Questions</h2>
+                {% for question in reasoning_questions %}
+                <div class="mb-6">
+                    <p class="font-medium text-purple-800">{{ question.question }}</p>
+                    {% for option in question.options %}
+                    <label class="block mt-2 flex items-center space-x-2">
+                        <input type="radio" name="reasoning[{{ question.id }}]" value="{{ option }}" class="accent-purple-500" required>
+                        <span class="text-purple-700">{{ option }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-bold px-8 py-3 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105">
+                    Submit Test
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
